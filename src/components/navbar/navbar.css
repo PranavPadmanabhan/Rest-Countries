@@ -1,0 +1,35 @@
+.header {
+    width: 100vw;
+    height: 10vh;
+    background-color: hsl(209, 23%, 22%);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding-inline: 4rem;
+    min-height: 70px;
+    position: fixed;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+
+.header-title {
+    color: white;
+    font-weight: bold;
+    font-size: 2vw;
+}
+
+.mode-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 12vw;
+    height: 50%;
+    cursor: pointer;
+}
+
+.button-text {
+    color: white;
+    margin-left: 0.5vw;
+}
