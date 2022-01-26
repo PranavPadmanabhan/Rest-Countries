@@ -9,7 +9,7 @@ function App() {
 
   
   return (
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
       <ThemeContextProvider>
         <Routes location={"/"}>
           <Route exact path={"/"} element={<Home />} />
