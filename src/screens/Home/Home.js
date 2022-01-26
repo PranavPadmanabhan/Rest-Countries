@@ -114,7 +114,7 @@ function Home() {
                                     placeholder='Search'
                                     type="text"
                                     className="Input"
-                                    style={{ backgroundColor: preferredTheme.elementColor }} />
+                                    style={{ backgroundColor: preferredTheme.elementColor,color: preferredTheme.textColor }} />
                             </div>
                             <div className="dropdown" style={{ backgroundColor: preferredTheme.elementColor }}>
                                 <div onClick={() => setDropdown(!dropdown)} className="dropdown-title-box" style={{ backgroundColor: preferredTheme.elementColor }}>
