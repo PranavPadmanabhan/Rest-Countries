@@ -11,7 +11,7 @@ function App() {
   return (
     <Router>
       <ThemeContextProvider>
-        <Routes >
+        <Routes location={"/"}>
           <Route exact path={"/"} element={<Home />} />
           <Route  path={"/:name"} element={<CountryDetails />} />
         </Routes>
