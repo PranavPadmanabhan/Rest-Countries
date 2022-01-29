@@ -6,9 +6,8 @@ import Navbar from '../navbar/navbar';
 import { FaArrowLeft } from 'react-icons/fa';
 
 
-function CountryDetails() {
-    const location = useLocation()
-    const {country,list } = location.state;
+function CountryDetails({country,list,onBackButtonPress}) {
+
     const { preferredTheme, DarkTheme} = useContext(ThemeContext)
     useEffect(() => {
      console.log(country);
@@ -24,10 +23,10 @@ function CountryDetails() {
         <div style={{backgroundColor:preferredTheme.backgroundColor}} className='country-details'>
             <Navbar />
             <div style={{backgroundColor:preferredTheme.backgroundColor}} className="button-container">
-                <Link to={"/"} className="back-button" style={{backgroundColor:preferredTheme.elementColor}}>
-                    <FaArrowLeft color={DarkTheme?"white":"black"} size={24}/>
-                    <span style={{color:preferredTheme.textColor}} className="backbutton-text">Back</span>
-                </Link>
+                <div onClick={onBackButtonPress} className="back-button" style={{backgroundColor:preferredTheme.elementColor}}>
+                    <FaArrowLeft onClick={onBackButtonPress} color={DarkTheme?"white":"black"} size={24}/>
+                    <span onClick={onBackButtonPress} style={{color:preferredTheme.textColor}} className="backbutton-text">Back</span>
+                </div>
             </div>
             <div className="details-container" style={{backgroundColor:preferredTheme.backgroundColor}}>
                 <img src={country.flag} alt="" className="country-flag" />

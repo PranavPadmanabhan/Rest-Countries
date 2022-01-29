@@ -13,7 +13,6 @@ function App() {
       <ThemeContextProvider>
         <Routes location={"/"}>
           <Route exact path={"/"} element={<Home />} />
-          <Route  path={"/:name"} element={<CountryDetails />} />
         </Routes>
       </ThemeContextProvider>
     </Router>

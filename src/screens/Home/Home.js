@@ -3,9 +3,10 @@ import { FaChevronDown, FaSearch } from 'react-icons/fa';
 import './Home.css';
 import axios from 'axios';
 import Navbar from '../../components/navbar/navbar';
-import Country from '../../components/navbar/Country/Country';
 import { ThemeContext } from '../../constants/ThemeContext';
 import LoadingIndicator from 'react-loading-indicator';
+import Country from '../../components/Country/Country';
+import CountryDetails from '../../components/CountryDetails/CountryDetails';
 
 function Home() {
 
@@ -74,6 +75,8 @@ function Home() {
     const [keyword, setKeyword] = useState("");
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false)
+    const [country, setCountry] = useState();
+    const [navigation, setNavigation] = useState(false);
 
     useEffect(() => {
         fetchCountries('all')
@@ -103,68 +106,72 @@ function Home() {
         <ThemeContext.Consumer>
             {
                 ({ preferredTheme, DarkTheme }) => (
+                   navigation?(<CountryDetails country={country} list={data} onBackButtonPress={() => setNavigation(false)}/>):(
                     <div className="App" style={{ backgroundColor: preferredTheme.backgroundColor }}>
-                        <Navbar />
-                        <div className="short-navbar" style={{ backgroundColor: preferredTheme.backgroundColor }}>
-                            <div className="search" style={{ backgroundColor: preferredTheme.elementColor }}>
-                                <FaSearch color={DarkTheme ? "grey" : "black"} />
-                                <input onChange={(e) => {
-                                    setKeyword(e.target.value)
-                                }}
-                                    placeholder='Search'
-                                    type="text"
-                                    className="Input"
-                                    style={{ backgroundColor: preferredTheme.elementColor,color: preferredTheme.textColor }} />
+                    <Navbar />
+                    <div className="short-navbar" style={{ backgroundColor: preferredTheme.backgroundColor }}>
+                        <div className="search" style={{ backgroundColor: preferredTheme.elementColor }}>
+                            <FaSearch color={DarkTheme ? "grey" : "black"} />
+                            <input onChange={(e) => {
+                                setKeyword(e.target.value)
+                            }}
+                                placeholder='Search'
+                                type="text"
+                                className="Input"
+                                style={{ backgroundColor: preferredTheme.elementColor,color: preferredTheme.textColor }} />
+                        </div>
+                        <div className="dropdown" style={{ backgroundColor: preferredTheme.elementColor }}>
+                            <div onClick={() => setDropdown(!dropdown)} className="dropdown-title-box" style={{ backgroundColor: preferredTheme.elementColor }}>
+                                <span onClick={() => setDropdown(!dropdown)} className="dropdown-title" style={{ color: preferredTheme.textColor }}>{selectedRegion}</span>
+                                <FaChevronDown onClick={() => setDropdown(!dropdown)} color={DarkTheme ? "white" : "black"} />
                             </div>
-                            <div className="dropdown" style={{ backgroundColor: preferredTheme.elementColor }}>
-                                <div onClick={() => setDropdown(!dropdown)} className="dropdown-title-box" style={{ backgroundColor: preferredTheme.elementColor }}>
-                                    <span onClick={() => setDropdown(!dropdown)} className="dropdown-title" style={{ color: preferredTheme.textColor }}>{selectedRegion}</span>
-                                    <FaChevronDown onClick={() => setDropdown(!dropdown)} color={DarkTheme ? "white" : "black"} />
-                                </div>
-                                {dropdown && (
-                                    <div className="dropdown-menu">
-                                        {
-                                            regions.map((item) => (
-                                                <span
-                                                    onClick={() => {
-                                                        setSelectedRegion(item.title);
-                                                        fetchCountries(item.title == 'All' ? 'all' : `regionalbloc/${item.endpoint}`)
-                                                        setDropdown(false)
-                                                    }}
-                                                    className="dropdown-items"
-                                                    style={{ backgroundColor: preferredTheme.elementColor, color: preferredTheme.textColor }}>{item.title}</span>
+                            {dropdown && (
+                                <div className="dropdown-menu">
+                                    {
+                                        regions.map((item) => (
+                                            <span
+                                                onClick={() => {
+                                                    setSelectedRegion(item.title);
+                                                    fetchCountries(item.title == 'All' ? 'all' : `regionalbloc/${item.endpoint}`)
+                                                    setDropdown(false)
+                                                }}
+                                                className="dropdown-items"
+                                                style={{ backgroundColor: preferredTheme.elementColor, color: preferredTheme.textColor }}>{item.title}</span>
 
-                                            ))
-                                        }
-                                    </div>
-                                )}
-                            </div>
+                                        ))
+                                    }
+                                </div>
+                            )}
                         </div>
+                    </div>
+                    {
+                        loading?(
+                           <div style={{display:"flex",flex:1,flexDirection:"column",alignItems:"center",justifyContent:"center",backgroundColor:preferredTheme.backgroundColor}}>
+                               <LoadingIndicator  segmentLength={10} segmentWidth={10}/>
+                           </div>
+                        ):(
+                            <div className="grid">
                         {
-                            loading?(
-                               <div style={{display:"flex",flex:1,flexDirection:"column",alignItems:"center",justifyContent:"center",backgroundColor:preferredTheme.backgroundColor}}>
-                                   <LoadingIndicator  segmentLength={10} segmentWidth={10}/>
-                               </div>
-                            ):(
-                                <div className="grid">
-                            {
-                                countries.map((country, index) => (
-                                    <Country
-                                        key={index}
-                                        name={country.name}
-                                        capital={country.capital}
-                                        population={country.population}
-                                        region={country.region}
-                                        url={country.flag}
-                                        country={country}
-                                        list={data}
-                                    />
-                                ))
-                            }
-                        </div>
-                            )
+                            countries.map((country, index) => (
+                                <Country
+                                    key={index}
+                                    name={country.name}
+                                    capital={country.capital}
+                                    population={country.population}
+                                    region={country.region}
+                                    url={country.flag}
+                                    onClick={() => {
+                                        setCountry(country);
+                                        setNavigation(true)
+                                    }}
+                                />
+                            ))
                         }
                     </div>
+                        )
+                    }
+                </div>
+                   )
                 )
             }
         </ThemeContext.Consumer>
