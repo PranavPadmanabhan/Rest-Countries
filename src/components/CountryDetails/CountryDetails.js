@@ -51,7 +51,7 @@ function CountryDetails({country,list,onBackButtonPress}) {
                             <div className='border-grid'>
                             {
                                 country.borders.map((item,index) => (
-                                    <div key={index} style={{fontSize:findCountryByCode(item).length>13?"0.7vw":"1vw" , backgroundColor:preferredTheme.elementColor,color:preferredTheme.textColor}} className="border-country">
+                                    <div key={index} style={{fontSize:findCountryByCode(item).length>13?"1.5vw":"2vw" , backgroundColor:preferredTheme.elementColor,color:preferredTheme.textColor}} className="border-country">
                                         {findCountryByCode(item)}
                                     </div>
                                 ))

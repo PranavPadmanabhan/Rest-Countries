@@ -13,7 +13,7 @@ function Navbar() {
   <div className='header' style={{backgroundColor:preferredTheme.headerColor}} > 
     <span className="header-title" style={{color:preferredTheme.textColor}}>Where in the world?</span>
     <div onClick={() => SelectTheme(!DarkTheme)} className="mode-button">
-        <FaMoon onClick={() => SelectTheme(!DarkTheme)} color={DarkTheme?"white":"black"} size={18}/>
+        <FaMoon style={{marginRight:5}} onClick={() => SelectTheme(!DarkTheme)} color={DarkTheme?"white":"black"} size={18}/>
         <span style={{color:preferredTheme.textColor}} onClick={() => SelectTheme(!DarkTheme)} className="button-text">Light mode</span>
     </div>
   </div>

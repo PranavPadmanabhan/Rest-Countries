@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 function Country({name,population,region,capital,url,onClick}) {
     const { preferredTheme } = useContext(ThemeContext)
     return (
-        <div onClick={onClick}  className='country' style={{backgroundColor:preferredTheme.elementColor}}>
+        <div onClick={onClick}  className='country' style={{backgroundColor:window.innerWidth<600?"transparent":preferredTheme.elementColor}}>
            <img src={url} alt="" className="flag" />
            <div className="details">
                <span className="country-name" style={{color:preferredTheme.textColor}}>{name}</span>
