@@ -53,6 +53,10 @@
       color: grey;
     }
     
+    .Input:focus{
+      outline: none;
+    }
+
     .dropdown {
       overflow: hidden;
       border-radius: 5px;
